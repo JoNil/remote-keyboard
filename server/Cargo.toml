@@ -1,7 +1,8 @@
 [package]
-name = "remote-keyboard"
+name = "remote-keyboard-server"
 version = "0.1.0"
 authors = ["ubuntu"]
 edition = "2018"
 
 [dependencies]
+structview = "0.1.0"
