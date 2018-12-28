@@ -1,0 +1,12 @@
+[Unit]
+Description=Remote keyboard server
+Wants=network.target
+After=network.target
+
+[Service]
+ExecStart=/home/ubuntu/remote-keyboard/server/target/release/remote-keyboard-server
+WorkingDirectory=/home/ubuntu/remote-keyboard
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
