@@ -1,3 +1,4 @@
+use std::env;
 use std::error::Error;
 use std::mem;
 use std::net::UdpSocket;
@@ -19,6 +20,8 @@ struct Message {
 
 fn main() -> Result<(), Box<Error>> {
     let socket = UdpSocket::bind("0.0.0.0:15170")?;
+
+    env::set_var("DISPLAY", ":0.0");
 
     loop {
         let mut buf = [0; mem::size_of::<Message>()];
