@@ -10,6 +10,9 @@ const MESSAGE_COMMAND_LEFT: u32 = 1;
 const MESSAGE_COMMAND_RIGHT: u32 = 2;
 const MESSAGE_COMMAND_UP: u32 = 3;
 const MESSAGE_COMMAND_DOWN: u32 = 4;
+const MESSAGE_COMMAND_ENTER: u32 = 5;
+const MESSAGE_COMMAND_ESCAPE: u32 = 6;
+const MESSAGE_COMMAND_MENU: u32 = 7;
 
 #[derive(Clone, Copy, View)]
 #[repr(C)]
@@ -30,7 +33,6 @@ fn main() -> Result<(), Box<Error>> {
 
         if amt == mem::size_of::<Message>() {
             if let Ok(message) = Message::view(&buf) {
-
                 if message.magic.to_int() == MESSAGE_MAGIC {
                     match message.command.to_int() {
                         MESSAGE_COMMAND_LEFT => {
@@ -61,7 +63,28 @@ fn main() -> Result<(), Box<Error>> {
                                 .output()
                                 .expect("failed to execute process");
                         }
-                        _ => ()
+                        MESSAGE_COMMAND_ENTER => {
+                            Command::new("xdotool")
+                                .arg("key")
+                                .arg("Return")
+                                .output()
+                                .expect("failed to execute process");
+                        }
+                        MESSAGE_COMMAND_ESCAPE => {
+                            Command::new("xdotool")
+                                .arg("key")
+                                .arg("Escape")
+                                .output()
+                                .expect("failed to execute process");
+                        }
+                        MESSAGE_COMMAND_MENU => {
+                            Command::new("xdotool")
+                                .arg("key")
+                                .arg("C")
+                                .output()
+                                .expect("failed to execute process");
+                        }
+                        _ => (),
                     }
                 }
             }
